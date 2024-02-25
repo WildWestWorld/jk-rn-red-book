@@ -5,8 +5,9 @@
  * @format
  */
 
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import type {PropsWithChildren} from 'react';
+import type { PropsWithChildren } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -16,103 +17,42 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
+import PageA from './src/views/PageA';
+import PageB from './src/views/PageB';
+const Stack = createStackNavigator()
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <SafeAreaProvider>
       <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+        barStyle={'dark-content'}
+        backgroundColor={'white'}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      {/* 路由管理 */}
+      {/* NavigationContainer  路由管理的容器 */}
+      <NavigationContainer>
+        {/* 路由管理器 */}
+        {/* screenOption:cardStyle:{elevation:1} 用于修复 页面的穿透(上层页面可以看到下层的页面)BUG */}
+        <Stack.Navigator initialRouteName='PageA' screenOptions={{ cardStyle: { elevation: 1 } }}>
+          {/* headerShown 是否展示标题栏*/}
+          <Stack.Screen name='PageA' component={PageA} options={{ headerShown: false }}></Stack.Screen>
+          {/* ...TransitionPresets.SlideFromRightIOS 路由动画 */}
+          <Stack.Screen name='PageB' component={PageB} options={{ headerShown: false, ...TransitionPresets.SlideFromRightIOS }}></Stack.Screen>
+
+        </Stack.Navigator>
+      </NavigationContainer>
+
+    </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+
 });
 
 export default App;
