@@ -14,7 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 import { formatPhone, replaceBlank } from '../../utils/stringUtil';
-
+import { request } from '../../utils/request'
 
 import icon_logo_main from '../../assets/icon_main_logo.png';
 import icon_unselected from '../../assets/icon_unselected.png';
@@ -45,8 +45,13 @@ export default () => {
         if (!canLogin || !check) {
             return;
         }
-
-
+        const payload = {
+            name:'dagongjue',
+            pwd:'123456'
+        }
+        const url = '/user/login'
+        const res = await request('login',payload);
+        console.log(`data=${JSON.stringify(res.data)}`)
     }
 
     const renderQuickLogin = () => {
@@ -306,7 +311,7 @@ export default () => {
             }
         })
 
-        const canLogin = phone?.length === 13 && pwd?.length ===6;
+        const canLogin = phone?.length === 13 && pwd?.length === 6;
 
         return (
             <View style={styles.root}>
@@ -315,7 +320,7 @@ export default () => {
                 <View style={styles.phoneLayout}>
                     <Text style={styles.pre86}>+86</Text>
                     <Image style={styles.triangle} source={icon_triangle}></Image>
-                    <TextInput style={styles.phoneInput} placeholderTextColor="#999" placeholder='请输入手机号码' autoFocus={false} keyboardType='number-pad' maxLength={11} value={phone}
+                    <TextInput style={styles.phoneInput} placeholderTextColor="#999" placeholder='请输入手机号码' autoFocus={false} keyboardType='number-pad' maxLength={13} value={phone}
                         onChangeText={(text: string) => { setPhone(formatPhone(text)) }}></TextInput>
                 </View>
 
@@ -340,14 +345,7 @@ export default () => {
                     <Text style={styles.forgetPwdTxt}>忘记密码?</Text>
                 </View>
 
-                <TouchableOpacity style={canLogin?styles.loginButton:styles.loginButtonDisable} activeOpacity={canLogin?0.7:1} onPress={() => {
-                    if(!canLogin||!check){
-                        return;
-                    }
-                     navigation.replace('HomeTab')   
-
-                    const purePhone = replaceBlank(phone)
-                }}>
+                <TouchableOpacity style={canLogin ? styles.loginButton : styles.loginButtonDisable} activeOpacity={canLogin ? 0.7 : 1} onPress={onLoginPress}>
                     <Text style={styles.loginTxt}>登录</Text>
                 </TouchableOpacity>
 
