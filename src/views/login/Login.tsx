@@ -8,6 +8,7 @@ import {
     Linking,
     TextInput,
     LayoutAnimation,
+    ToastAndroid,
 } from 'react-native'
 
 import { useNavigation } from '@react-navigation/native';
@@ -27,6 +28,7 @@ import icon_eye_close from '../../assets/icon_eye_close.png';
 import icon_exchange from '../../assets/icon_exchange.png';
 import icon_wx from '../../assets/icon_wx.png';
 import icon_close_modal from '../../assets/icon_close_modal.png';
+import UserStore from '../../stores/UserStore';
 
 
 export default () => {
@@ -45,13 +47,20 @@ export default () => {
         if (!canLogin || !check) {
             return;
         }
-        const payload = {
-            name:'dagongjue',
-            pwd:'123456'
-        }
-        const url = '/user/login'
-        const res = await request('login',payload);
-        console.log(`data=${JSON.stringify(res.data)}`)
+        // const payload = {
+        //     name:'dagongjue',
+        //     pwd:'123456'
+        // }
+        // const url = '/user/login'
+        // const res = await request('login',payload);
+        // console.log(`data=${JSON.stringify(res.data)}`)
+        UserStore.requestLogin(replaceBlank(phone), pwd, (success: boolean) => {
+            if (success) {
+                navigation.replace('MainTab')
+            } else {
+                ToastAndroid.show('登录失败,请检查用户名密码', ToastAndroid.LONG)
+            }
+        })
     }
 
     const renderQuickLogin = () => {

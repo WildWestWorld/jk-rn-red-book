@@ -22,7 +22,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import Welcome from './src/views/welcome/Welcome';
 import Login from './src/views/login/Login';
-import HomeTab from './src/views/home/HomeTab';
+import MainTab from './src/views/mainTab/MainTab';
 
 const Stack = createStackNavigator()
 
@@ -47,7 +47,7 @@ function App(): React.JSX.Element {
             ...TransitionPresets.SlideFromRightIOS
           }}></Stack.Screen>
 
-          <Stack.Screen name='HomeTab' component={HomeTab} options={{
+          <Stack.Screen name='MainTab' component={MainTab} options={{
             headerShown: false,
             ...TransitionPresets.SlideFromRightIOS
           }}></Stack.Screen>

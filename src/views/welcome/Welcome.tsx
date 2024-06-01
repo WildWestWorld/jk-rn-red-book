@@ -5,6 +5,7 @@ import icon_logo_main from '../../assets/icon_main_logo.png';
 
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native'
+import { storageLoad } from '../../utils/storage';
 
 
 export default function Welcome() {
@@ -12,12 +13,25 @@ export default function Welcome() {
 
     useEffect(() => {
         setTimeout(() => {
-            startLogin()
-        }, 3000)
+            getUserInfo()
+        }, 2000)
     }, [])
 
     const startLogin = () => {
         navigation.replace('Login')
+    }
+
+    const startHome = () => {
+        navigation.replace('MainTab')
+    }
+
+    const getUserInfo = async () => {
+        const cacheUserInfo = await storageLoad('userInfo');
+        if (cacheUserInfo && JSON.parse(cacheUserInfo)) {
+            startHome();
+        } else {
+            startLogin();
+        }
     }
 
 

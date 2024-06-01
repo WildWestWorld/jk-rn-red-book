@@ -5,9 +5,32 @@ const instance = axios.create({
     timeout: 10 * 1000
 });
 
+instance.interceptors.response.use(
+    response => response,
+    error => {
+        const { response } = error;
+        if (response) {
+            const { status } = response;
+            if (status >= 500) {
+
+            } else if (status === 400) {
+
+            } else if (status === 401) {
+
+            } else {
+
+            }
+
+        } else {
+
+        }
+        return Promise.reject(error)
+    }
+)
+
 export const request = (name: string, params: any): Promise<AxiosResponse<any, any>> => {
     const api = (Apis as any)[name];
-   
+    console.log(api)
     const { url, method } = api;
     if (method === 'get') {
         return get(url, params)
