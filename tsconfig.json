@@ -42,7 +42,8 @@
     // Causes issues with package.json "exports"
     "forceConsistentCasingInFileNames": false,
     "suppressImplicitAnyIndexErrors": true,
-    "ignoreDeprecations": "5.0"
+    "ignoreDeprecations": "5.0",
+    "experimentalDecorators": true
   },
   "exclude": [
     "node_modules",
