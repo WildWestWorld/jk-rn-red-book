@@ -1,7 +1,19 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useLocalStore } from 'mobx-react'
+import HomeStore from './HomeStore'
 
 export default function Home() {
+
+  const store = useLocalStore(() => {
+    return new HomeStore()
+  })
+  useEffect(() => {
+
+    store.requestHomeList();
+  }, [])
+
+
   return (
     <View style={styles.root}>
       <Text style={{
