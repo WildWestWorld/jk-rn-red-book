@@ -48,3 +48,10 @@ type ArticleSimple = {
     isFavorite: boolean;
     image: string;
 }
+
+
+type Category = {
+    name: string;
+    default: boolean;
+    isAdd: boolean;
+}

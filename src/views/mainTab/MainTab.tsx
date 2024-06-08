@@ -124,13 +124,13 @@ export default function MainTab() {
 
       tabBar={props => <RedBookTabBar {...props}></RedBookTabBar>}
     >
-      <BottomTab.Screen name='Home' component={Home} options={{ title: '首页' }}></BottomTab.Screen>
-      <BottomTab.Screen name='Shop' component={Shop} options={{ title: '购物' }}></BottomTab.Screen>
+      <BottomTab.Screen name='Home' component={Home} options={{ title: '首页', headerShown: false }}></BottomTab.Screen>
+      <BottomTab.Screen name='Shop' component={Shop} options={{ title: '购物' , headerShown: false}}></BottomTab.Screen>
 
-      <BottomTab.Screen name='Publish' component={Shop} options={{ title: '发布' }}></BottomTab.Screen>
+      <BottomTab.Screen name='Publish' component={Shop} options={{ title: '发布' , headerShown: false}}></BottomTab.Screen>
 
-      <BottomTab.Screen name='Message' component={Message} options={{ title: '消息' }}></BottomTab.Screen>
-      <BottomTab.Screen name='Mine' component={Mine} options={{ title: '我' }}></BottomTab.Screen>
+      <BottomTab.Screen name='Message' component={Message} options={{ title: '消息' , headerShown: false}}></BottomTab.Screen>
+      <BottomTab.Screen name='Mine' component={Mine} options={{ title: '我' , headerShown: false}}></BottomTab.Screen>
 
 
     </BottomTab.Navigator>
