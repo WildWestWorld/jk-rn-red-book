@@ -29,6 +29,7 @@ import icon_exchange from '../../assets/icon_exchange.png';
 import icon_wx from '../../assets/icon_wx.png';
 import icon_close_modal from '../../assets/icon_close_modal.png';
 import UserStore from '../../stores/UserStore';
+import Toast from '../../components/widget/Toast';
 
 
 export default () => {
@@ -58,7 +59,7 @@ export default () => {
             if (success) {
                 navigation.replace('MainTab')
             } else {
-                ToastAndroid.show('登录失败,请检查用户名密码', ToastAndroid.LONG)
+                Toast.show('登录失败,请检查用户名密码')
             }
         })
     }

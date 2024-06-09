@@ -1,6 +1,7 @@
 import { observable, action } from 'mobx';
 import { request } from "../../utils/request";
 import { storageLoad } from '../../utils/storage.js';
+import Loading from '../../components/widget/Loading.tsx';
 
 const SIZE = 10;
 
@@ -23,6 +24,7 @@ export default class HomeStore {
         if (this.refreshing) {
             return
         }
+        Loading.show()
         try {
             this.refreshing = true;
             const params = {
@@ -51,6 +53,7 @@ export default class HomeStore {
             console.log(error);
         } finally {
             this.refreshing = false;
+            Loading.hide()
         }
     }
 

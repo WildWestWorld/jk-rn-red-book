@@ -1,6 +1,7 @@
 import { request } from "../utils/request";
 import { flow } from "mobx";
 import { storageSave } from "../utils/storage";
+import Loading from "../components/widget/Loading";
 
 class UserStore {
     userInfo: any;
@@ -10,6 +11,7 @@ class UserStore {
             phone: string,
             pwd: string,
             callback: (success: boolean) => void) {
+            Loading.show()
             try {
                 const params = {
                     name: phone,
@@ -18,7 +20,7 @@ class UserStore {
                 const { data } = yield request('login', params);
                 console.log(data)
                 if (data) {
-                    storageSave('userInfo',JSON.stringify(data))
+                    storageSave('userInfo', JSON.stringify(data))
                     this.userInfo = data;
                     callback?.(true);
                 } else {
@@ -30,6 +32,8 @@ class UserStore {
                 console.log(e)
                 this.userInfo = null;
                 callback?.(false)
+            } finally {
+                Loading.hide()
             }
         })
 
