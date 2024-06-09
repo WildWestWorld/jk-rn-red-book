@@ -85,7 +85,7 @@ const Home = observer(() => {
         onEndReached={loadMoreData}
         onEndReachedThreshold={0.1}
         ListFooterComponent={<Footer />}
-        ListHeaderComponent={<CategoryList categoryList={categoryList} onCategoryChange={(category: Category) => {
+        ListHeaderComponent={<CategoryList categoryList={categoryList} allCategoryList={store.categoryList} onCategoryChange={(category: Category) => {
           console.log(JSON.stringify(category))
         }} />}
         contentContainerStyle={styles.container}
