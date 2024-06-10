@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, Image, ActivityIndicator, Dimensions } from 'react-native';
 import { observer, useLocalStore } from 'mobx-react';
 import HomeStore from './HomeStore';
@@ -10,6 +10,8 @@ import Heart from '../../components/Heart.tsx';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import TitleBar from './components/TitleBar.tsx';
 import CategoryList from './components/CategoryList.tsx';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -20,6 +22,8 @@ const Home = observer(() => {
   const store = useLocalStore(() => {
     return new HomeStore()
   })
+
+  const navigation = useNavigation<StackNavigationProp<any>>();
 
 
   useEffect(() => {
@@ -38,12 +42,15 @@ const Home = observer(() => {
 
   }
 
+  const onArticlePress = useCallback((article: ArticleSimple) =>{
+    navigation.push('ArticleDetail', { id: article.id })
+  }, []);
 
 
 
   const renderItem = ({ item, index }: { item: ArticleSimple, index: number }) => {
     return (
-      <View style={styles.item}>
+      <TouchableOpacity style={styles.item} onPress={() => onArticlePress(item)}>
         <ResizeImage uri={item.image}></ResizeImage>
         <Text style={styles.titleTxt}>{item.title}</Text>
         <View style={styles.nameLayout}>
@@ -55,7 +62,7 @@ const Home = observer(() => {
           }} size={20}></Heart>
           <Text style={styles.countTxt}>{item.favoriteCount}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
 
 
 

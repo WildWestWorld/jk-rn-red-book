@@ -1,11 +1,15 @@
 const apiConfig = {
-    login:{
-        url:'/user/login',
-        method:'get'
+    login: {
+        url: '/user/login',
+        method: 'get'
     },
-    homeList:{
-        url:'/home/homeList',
-        method:'get'
+    homeList: {
+        url: '/home/homeList',
+        method: 'get'
+    },
+    articleDetail: {
+        url: '/article/articleDetail',
+        method: 'get'
     }
 }
 
