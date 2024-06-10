@@ -24,6 +24,7 @@ import Welcome from './src/views/welcome/Welcome';
 import Login from './src/views/login/Login';
 import MainTab from './src/views/mainTab/MainTab';
 import ArticleDetail from './src/views/articleDetail/ArticleDetail';
+import SearchGoods from './src/views/searchGoods/SearchGoods';
 
 
 const Stack = createStackNavigator()
@@ -59,6 +60,11 @@ function App(): React.JSX.Element {
             ...TransitionPresets.SlideFromRightIOS
           }}></Stack.Screen>
 
+
+          <Stack.Screen name='SearchGoods' component={SearchGoods} options={{
+            headerShown: false,
+            presentation: 'transparentModal'
+          }}></Stack.Screen>
 
 
         </Stack.Navigator>
