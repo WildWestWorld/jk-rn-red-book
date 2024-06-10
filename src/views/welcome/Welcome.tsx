@@ -6,6 +6,7 @@ import icon_logo_main from '../../assets/icon_main_logo.png';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native'
 import { storageLoad } from '../../utils/storage';
+import UserStore from '../../stores/UserStore';
 
 
 export default function Welcome() {
@@ -27,7 +28,10 @@ export default function Welcome() {
 
     const getUserInfo = async () => {
         const cacheUserInfo = await storageLoad('userInfo');
-        if (cacheUserInfo && JSON.parse(cacheUserInfo)) {
+        if (!cacheUserInfo) {
+            startLogin()
+        } else if (cacheUserInfo && JSON.parse(cacheUserInfo)) {
+            UserStore.setUserInfo(JSON.parse(cacheUserInfo))
             startHome();
         } else {
             startLogin();
